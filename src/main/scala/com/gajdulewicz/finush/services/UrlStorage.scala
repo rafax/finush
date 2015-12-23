@@ -3,16 +3,15 @@ package com.gajdulewicz.finush.services
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicInteger
 import javax.inject.{Inject, Singleton}
-import com.gajdulewicz.finush.model.Url
-import Url.Id
+
 import com.gajdulewicz.finush.model.Url
 
 import scala.collection.JavaConversions._
 
 trait UrlStorage {
-  def get(id: Id): Url
+  def get(id: String): Url
 
-  def create(long: String): Id
+  def create(long: String): Url
 
   def getAll(): Seq[Url]
 }
@@ -27,11 +26,11 @@ class MemoryUrlStorage @Inject()() extends UrlStorage {
     store.get(id)
   }
 
-  override def create(long: String): Id = {
+  override def create(long: String): Url = {
     val id = cnt.incrementAndGet()
     val url = Url(id.toString, long)
     store.put(url.id, url)
-    url.id
+    url
   }
 
   override def getAll(): Seq[Url] = {

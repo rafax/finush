@@ -1,9 +1,3 @@
 package com.gajdulewicz.finush.model
 
-import com.gajdulewicz.finush.model.Url.Id
-
-case class Url(id: Id, longUrl: String)
-
-object Url {
-  type Id = String
-}
+case class Url(id: String, link: String)
